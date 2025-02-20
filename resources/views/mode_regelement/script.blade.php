@@ -19,7 +19,7 @@
     $('#createNewItem').click(function() {
         $('#id').val('');
         $('#itemForm').trigger("reset");
-        $('#modalTitle').html("Ajouter nouvelle Etat");
+        $('#modalTitle').html("Ajouter nouvelle mode de reglement");
         $('#saveBtn').html("Ajouter");
         $('#itemModal').appendTo('body').modal('show');
     });
@@ -189,3 +189,23 @@
         });
     });
 </script>
+
+
+<style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: white !important;
+    border: none!important;
+    background-color: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:focus-visible {
+    border: none!important;
+}
+</style>
