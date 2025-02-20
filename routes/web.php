@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\EtatController;
 use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\ModeReglementController;
 use App\Http\Controllers\SousFamilleController;
 use App\Http\Controllers\UniteController;
+use App\Models\Commande;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -46,3 +48,10 @@ Route::get('datatable/etats', [EtatController::class, 'getEtats'])->name('etats.
 Route::resource('mode_reglements',ModeReglementController::class);
 // DataTable Route
 Route::get('datatable/etats', [ModeReglementController::class, 'getmode_reglements'])->name('mode_reglements.data');
+
+
+
+//Commande
+Route::resource('commandes',CommandeController::class);
+// DataTable Route
+Route::get('datatable/etats', [commandes::class, 'getmode_reglements'])->name('commandes.data');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Commande;
 use App\Http\Requests\StoreCommandeRequest;
 use App\Http\Requests\UpdateCommandeRequest;
+use Symfony\Component\Console\Command\Command;
 
 class CommandeController extends Controller
 {
@@ -13,7 +14,8 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        //
+        $commandes = Commande::all();
+        return view('commandes.index', compact('commandes'));
     }
 
     /**

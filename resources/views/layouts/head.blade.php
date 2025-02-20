@@ -2,6 +2,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>Otika - Admin Dashboard Template</title>
+      <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- General CSS Files -->
     <link rel="stylesheet" href="assets/css/app.min.css">
     <!-- Template CSS -->
@@ -27,6 +29,9 @@
     <style>
         .modal {
             z-index: 1050 !important;
+        }
+        .large-modal {
+            max-width: 80%;
         }
 
         .custom-thumbnail {
@@ -72,5 +77,43 @@
             display: block;
             margin: 0 auto;
             padding: 5px;
+
+
+            /* Fade-in animation for new product rows */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .fade-in {
+                animation: fadeIn 0.5s ease-out;
+            }
+
+            /* Fade-out effect for removal */
+            .fade-out {
+                opacity: 0;
+                transition: opacity 0.5s ease-out;
+            }
+
+            /* Custom inline totals input style */
+            .totals-input {
+                width: 100px;
+                display: inline-block;
+                vertical-align: middle;
+                text-align: right;
+            }
+
+            .totals-label {
+                margin-bottom: 0;
+                margin-right: 5px;
+                font-weight: 500;
+            }
     </style>
 </head>
