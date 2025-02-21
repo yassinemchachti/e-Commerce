@@ -48,14 +48,14 @@ Route::get('datatable/etats', [EtatController::class, 'getEtats'])->name('etats.
 //Mode regelement
 Route::resource('mode_reglements',ModeReglementController::class);
 // DataTable Route
-Route::get('datatable/etats', [ModeReglementController::class, 'getmode_reglements'])->name('mode_reglements.data');
+Route::get('datatable/mode_reglements', [ModeReglementController::class, 'getmode_reglements'])->name('mode_reglements.data');
 
 
 
 //Commande
 Route::resource('commandes',CommandeController::class);
 // DataTable Route
-Route::get('datatable/etats', [CommandeController::class, 'getmode_reglements'])->name('commandes.data');
+Route::get('datatable/commandes', [CommandeController::class, 'getmode_reglements'])->name('commandes.data');
 
 
 //Produit
