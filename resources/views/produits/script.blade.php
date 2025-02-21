@@ -1,10 +1,17 @@
 <script>
     // Example: Setting values before showing the modal
     function showItemDetails(item) {
-        document.getElementById('showLibelle').innerText = item.libelle;
+        console.log('showItemDetails',item);
         document.querySelector('#showImage img').src = `storage/${item.image}`;
-        // Optionally set the hidden id field
-        document.getElementById('id').value = item.id;
+        $('#id').val(`${item.id}`);
+        $('#showDesignation').html(`${item.designation}`);
+        $('#showCodebar').html(`${item.code_barre}`);
+        $('#showPrixHt').html(`${item.prix_ht}`);
+        $('#showTva').html(`${item.tva}`);
+        $('#showDescription').html(`${item.description}`);
+        $('#showSousFamille').html(`${item.sous_famille_id}`);
+        $('#showMarque').html(`${item.marque_id}`);
+        $('#showUnite').html(`${item.unite_id}`);
     }
 
     function showSuccessAlert(message) {
@@ -55,20 +62,20 @@
             $('#error-sous_famille').html('');
             $('#error-marque').html('');
             $('#error-unite').html('');
+            $('#error-designation').html('');
             $('#modalTitle').html("Modifier produit");
             $('#saveBtn').html("Modifier");
             $('#itemModal').appendTo('body').modal('show');
             $('#id').val(`${data.id}`);
             $('#image').val(``);
-            $('#libelle').val(`${data.libelle}`);
-            $('#codebar').html(`${data.codebar}`);
-            $('#image').html(``);
-            $('#prix_ht').html(`${data.prix_ht}`);
-            $('#tva').html(`${data.tva}`);
-            $('#description').html(`${data.description}`);
-            $('#sous_famille').html(`${data.sous_famille_id}`);
-            $('#marque').html(`${data.marque_id}`);
-            $('#unite').html(`${data.unite_id}`);
+            $('#codebar').val(`${data.code_barre}`);
+            $('#image').val(``);
+            $('#prix_ht').val(`${data.prix_ht}`);
+            $('#tva').val(`${data.tva}`);
+            $('#description').val(`${data.description}`);
+            $('#sous_famille').val(`${data.sous_famille_id}`);
+            $('#marque').val(`${data.marque_id}`);
+            $('#unite').val(`${data.unite_id}`);
         });
     });
 
@@ -101,6 +108,7 @@
                 $('#error-sous_famille').html('');
                 $('#error-marque').html('');
                 $('#error-unite').html('');
+                $('#error-designation').html('');
                 showSuccessAlert(message);
             },
             error: function(response) {
@@ -132,20 +140,25 @@
                     } else {
                         $('#error-description').html('');
                     }
-                    if (errors.sous_famille_id) {
-                        $('#error-sous_famille').html(errors.sous_famille_id[0]);
+                    if (errors.sous_famille) {
+                        $('#error-sous_famille').html(errors.sous_famille[0]);
                     } else {
                         $('#error-sous_famille').html('');
                     }
-                    if (errors.marque_id) {
-                        $('#error-marque').html(errors.marque_id[0]);
+                    if (errors.marque) {
+                        $('#error-marque').html(errors.marque[0]);
                     } else {
                         $('#error-marque').html('');
                     }
-                    if (errors.unite_id) {
-                        $('#error-unite').html(errors.unite_id[0]);
+                    if (errors.unite) {
+                        $('#error-unite').html(errors.unite[0]);
                     } else {
                         $('#error-unite').html('');
+                    }
+                    if (errors.designation) {
+                        $('#error-designation').html(errors.designation[0]);
+                    } else {
+                        $('#error-designation').html('');
                     }
 
                 }
@@ -247,7 +260,7 @@
                     "visible": false
                 },
                 {
-                    "data": "code_bar"
+                    "data": "code_barre"
                 },
                 {
                     "data": "designation"

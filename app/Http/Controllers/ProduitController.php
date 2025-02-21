@@ -50,9 +50,9 @@ class ProduitController extends Controller
             'prix_ht' => $request->prix_ht,
             'tva' => $request->tva,
             'description' => $request->description,
-            'unite_id' => $request->unite_id,
-            'marque_id' => $request->marque_id,
-            'sous_famille_id' => $request->sous_famille_id,
+            'unite_id' => $request->unite,
+            'marque_id' => $request->marque,
+            'sous_famille_id' => $request->sous_famille,
             'image' => $path,
         ]);
         return response()->json(['success' => 'Produit crée avec succès']);
@@ -95,9 +95,9 @@ class ProduitController extends Controller
                 'prix_ht' => $request->prix_ht,
                 'tva' => $request->tva,
                 'description' => $request->description,
-                'unite_id' => $request->unite_id,
-                'marque_id' => $request->marque_id,
-                'sous_famille_id' => $request->sous_famille_id,
+                'unite_id' => $request->unite,
+                'marque_id' => $request->marque,
+                'sous_famille_id' => $request->sous_famille,
                 'image' => $path,
             ]);
         } else {
@@ -107,9 +107,9 @@ class ProduitController extends Controller
                 'prix_ht' => $request->prix_ht,
                 'tva' => $request->tva,
                 'description' => $request->description,
-                'unite_id' => $request->unite_id,
-                'marque_id' => $request->marque_id,
-                'sous_famille_id' => $request->sous_famille_id,
+                'unite_id' => $request->unite,
+                'marque_id' => $request->marque,
+                'sous_famille_id' => $request->sous_famille,
             ]);
         }
         return response()->json(['success' => 'Produit modifiée avec succès']);
