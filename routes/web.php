@@ -5,6 +5,7 @@ use App\Http\Controllers\EtatController;
 use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\ModeReglementController;
+use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\SousFamilleController;
 use App\Http\Controllers\UniteController;
 use App\Models\Commande;
@@ -54,4 +55,10 @@ Route::get('datatable/etats', [ModeReglementController::class, 'getmode_reglemen
 //Commande
 Route::resource('commandes',CommandeController::class);
 // DataTable Route
-Route::get('datatable/etats', [commandes::class, 'getmode_reglements'])->name('commandes.data');
+Route::get('datatable/etats', [CommandeController::class, 'getmode_reglements'])->name('commandes.data');
+
+
+//Produit
+Route::resource('produits',ProduitController::class);
+// DataTable Route
+Route::get('datatable/produits', [ProduitController::class, 'getproduits'])->name('produits.data');

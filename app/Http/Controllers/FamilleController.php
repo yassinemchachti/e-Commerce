@@ -95,12 +95,12 @@ class FamilleController extends Controller
                 'libelle' => $request->libelle,
                 'image' => $path,
             ]);
-        }else{
+        } else {
             $famille->update([
                 'libelle' => $request->libelle,
             ]);
         }
-       
+
         return response()->json(['success' => 'Famille modifiée avec succès']);
     }
 

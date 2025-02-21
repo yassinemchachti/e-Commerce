@@ -32,3 +32,21 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: white !important;
+    border: none!important;
+    background-color: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+    background: #ffffff00!important;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:focus-visible {
+    border: none!important;
+}
+</style>

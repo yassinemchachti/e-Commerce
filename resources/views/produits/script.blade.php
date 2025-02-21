@@ -1,4 +1,12 @@
 <script>
+    // Example: Setting values before showing the modal
+    function showItemDetails(item) {
+        document.getElementById('showLibelle').innerText = item.libelle;
+        document.querySelector('#showImage img').src = `storage/${item.image}`;
+        // Optionally set the hidden id field
+        document.getElementById('id').value = item.id;
+    }
+
     function showSuccessAlert(message) {
         Swal.fire({
             toast: true,
@@ -17,23 +25,50 @@
     }
     // Create/Edit Modal Handler
     $('#createNewItem').click(function() {
+        $('#error-libelle').html('');
+        $('#error-image').html('');
         $('#id').val('');
         $('#itemForm').trigger("reset");
-        $('#modalTitle').html("Ajouter nouvelle mode de reglement");
+        $('#modalTitle').html("Ajouter nouvelle produit");
         $('#saveBtn').html("Ajouter");
+        // $('#itemModal').modal('show');
         $('#itemModal').appendTo('body').modal('show');
+    });
+    $(document).on('click', '.show-item', function() {
+        const id = $(this).data('id');
+        $.get(`produits/${id}`, function(data) {
+            console.log(data);
+            showItemDetails(data);
+            $('#showModal').appendTo('body').modal('show');
+        });
     });
     // Edit Handler
     $(document).on('click', '.edit-item', function() {
         const id = $(this).data('id');
-        $.get(`mode_reglements/${id}`, function(data) {
+        $.get(`produits/${id}`, function(data) {
             console.log(data);
-            $('#error-mode_reglement').html('');
-            $('#modalTitle').html("Modifier mode de reglement");
+            $('#error-codebar').html('');
+            $('#error-image').html('');
+            $('#error-prix_ht').html('');
+            $('#error-tva').html('');
+            $('#error-description').html('');
+            $('#error-sous_famille').html('');
+            $('#error-marque').html('');
+            $('#error-unite').html('');
+            $('#modalTitle').html("Modifier produit");
             $('#saveBtn').html("Modifier");
             $('#itemModal').appendTo('body').modal('show');
             $('#id').val(`${data.id}`);
-            $('#mode_reglement').val(`${data.mode_reglement}`);
+            $('#image').val(``);
+            $('#libelle').val(`${data.libelle}`);
+            $('#codebar').html(`${data.codebar}`);
+            $('#image').html(``);
+            $('#prix_ht').html(`${data.prix_ht}`);
+            $('#tva').html(`${data.tva}`);
+            $('#description').html(`${data.description}`);
+            $('#sous_famille').html(`${data.sous_famille_id}`);
+            $('#marque').html(`${data.marque_id}`);
+            $('#unite').html(`${data.unite_id}`);
         });
     });
 
@@ -42,9 +77,9 @@
         const formElement = document.getElementById('itemForm');
         const formData = new FormData(formElement);
         const id = $('#id').val();
-        const url = id ? `mode_reglements/${id}` : '/mode_reglements';
+        const url = id ? `produits/${id}` : '/produits';
         const method = id ? 'PUT' : 'POST';
-        const message = id ? 'Mode de reglement modifiée avec succès' : 'Mode de reglement crée avec succès';
+        const message = id ? 'Produit modifiée avec succès' : 'Produit crée avec succès';
         // For RESTful routes that don't support PUT directly
         if (method === 'PUT') {
             formData.append('_method', 'PUT');
@@ -58,18 +93,61 @@
             success: function(response) {
                 $('#itemModal').modal('hide');
                 $('#itemsTable').DataTable().ajax.reload();
-                $('#error-mode_reglement').html('');
+                $('#error-codebar').html('');
+                $('#error-image').html('');
+                $('#error-prix_ht').html('');
+                $('#error-tva').html('');
+                $('#error-description').html('');
+                $('#error-sous_famille').html('');
+                $('#error-marque').html('');
+                $('#error-unite').html('');
                 showSuccessAlert(message);
             },
             error: function(response) {
                 if (response.status === 422) { // Unprocessable Entity - validation error
                     let errors = response.responseJSON.errors;
                     // For example, if you want to display errors for the 'image' field:
-                    if (errors.mode_reglement) {
-                        $('#error-mode_reglement').html(errors.mode_reglement[0]);
-                    }else {
-                        $('#error-mode_reglement').html('');
+                    if (errors.image) {
+                        $('#error-image').html(errors.image[0]);
+                    } else {
+                        $('#error-image').html('');
                     }
+                    if (errors.codebar) {
+                        $('#error-codebar').html(errors.codebar[0]);
+                    } else {
+                        $('#error-codebar').html('');
+                    }
+                    if (errors.prix_ht) {
+                        $('#error-prix_ht').html(errors.prix_ht[0]);
+                    } else {
+                        $('#error-prix_ht').html('');
+                    }
+                    if (errors.tva) {
+                        $('#error-tva').html(errors.tva[0]);
+                    } else {
+                        $('#error-tva').html('');
+                    }
+                    if (errors.description) {
+                        $('#error-description').html(errors.description[0]);
+                    } else {
+                        $('#error-description').html('');
+                    }
+                    if (errors.sous_famille_id) {
+                        $('#error-sous_famille').html(errors.sous_famille_id[0]);
+                    } else {
+                        $('#error-sous_famille').html('');
+                    }
+                    if (errors.marque_id) {
+                        $('#error-marque').html(errors.marque_id[0]);
+                    } else {
+                        $('#error-marque').html('');
+                    }
+                    if (errors.unite_id) {
+                        $('#error-unite').html(errors.unite_id[0]);
+                    } else {
+                        $('#error-unite').html('');
+                    }
+
                 }
             }
         });
@@ -89,7 +167,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `mode_reglements/${id}`,
+                    url: `produits/${id}`,
                     method: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -153,6 +231,7 @@
     //         language: {
     //             url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json" // Load French translations
     //         },
+
     //         // Optional: Style the dropdown and pagination
     //         dom: 'lftip' // Layout control (l = length menu, f = filter, t = table, i = info, p = pagination)
     //     });
@@ -161,17 +240,23 @@
     $(document).ready(function() {
         $('#itemsTable').DataTable({
             "serverSide": true, // If using server-side processing
-            "ajax": "{{ route('mode_reglements.data') }}", // Your data endpoint
+            "ajax": "{{ route('produits.data') }}", // Your data endpoint
 
             "columns": [{
                     "data": "id",
                     "visible": false
                 },
                 {
-                    "data": "mode_reglement"
+                    "data": "code_bar"
                 },
                 {
-                    "data": "created_at"
+                    "data": "designation"
+                },
+                {
+                    "data": "prix_ht"
+                },
+                {
+                    "data": "tva"
                 },
                 {
                     "data": "action",
@@ -189,5 +274,3 @@
         });
     });
 </script>
-
-
