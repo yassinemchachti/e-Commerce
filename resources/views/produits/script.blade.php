@@ -212,78 +212,26 @@
             }
         });
     });
-
-    // $(document).ready(function() {
-    //     const table = $('#itemsTable').DataTable({
-    //         processing: true,
-    //         serverSide: true,
-    //         ajax: "{{ route('familles.data') }}",
-    //         columns: [{
-    //                 data: 'id',
-    //                 visible: false
-    //             },
-    //             {
-    //                 data: 'libelle',
-    //             },
-    //             {
-    //                 data: 'image',
-    //             },
-    //             {
-    //                 data: 'created_at',
-    //             },
-    //             {
-    //                 data: 'action',
-    //                 orderable: false,
-    //                 searchable: false
-    //             }
-    //         ],
-    //         order: [
-    //             [0, 'desc']
-    //         ],
-    //         // French language configuration
-    //         language: {
-    //             url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json" // Load French translations
-    //         },
-
-    //         // Optional: Style the dropdown and pagination
-    //         dom: 'lftip' // Layout control (l = length menu, f = filter, t = table, i = info, p = pagination)
-    //     });
-    // });
-
     $(document).ready(function() {
-        $('#itemsTable').DataTable({
-            "serverSide": true, // If using server-side processing
-            "ajax": "{{ route('produits.data') }}", // Your data endpoint
-
-            "columns": [{
-                    "data": "id",
-                    "visible": false
-                },
-                {
-                    "data": "code_barre"
-                },
-                {
-                    "data": "designation"
-                },
-                {
-                    "data": "prix_ht"
-                },
-                {
-                    "data": "tva"
-                },
-                {
-                    "data": "action",
-
-                    "orderable": false,
-                    "searchable": false
-                }
-            ],
-            "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-            "language": {
-                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json" // Load French translations
-            }
-        });
+    $('#itemsTable').DataTable({
+      serverSide: true,
+      ajax: "{{ route('produits.data') }}",
+      columns: [
+        { data: 'id', visible: false },
+        { data: 'code_barre' },
+        { data: 'designation' },
+        { data: 'prix_ht' },
+        { data: 'tva' },
+        { data: 'action', orderable: false, searchable: false }
+      ],
+      order: [[0, 'desc']],
+      // Set default number of rows per page
+      pageLength: 10,
+      // Define available options for rows per page
+      lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tout"]],
+      language: {
+        url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+      }
     });
+  });
 </script>

@@ -47,6 +47,12 @@
 
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:focus-visible {
-    border: none!important;
+    border: none !important;
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+    width: 52px !important;
+    height: 32px !important;
+    display: inline-block;
 }
 </style>

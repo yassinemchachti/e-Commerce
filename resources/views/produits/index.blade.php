@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered" id="itemsTable" style="width:100%">
+                            <table class="table table-striped" style="width:100%" id="itemsTable" >
                                 <thead class="thead-light">
                                     <tr>
                                         <th hidden>#</th>
