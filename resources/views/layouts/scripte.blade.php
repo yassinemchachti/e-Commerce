@@ -48,6 +48,7 @@
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:focus-visible {
     border: none !important;
+    
 }
 
 div.dataTables_wrapper div.dataTables_length select {
