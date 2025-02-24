@@ -1,17 +1,17 @@
 <script>
     // Example: Setting values before showing the modal
     function showItemDetails(item) {
-        console.log('showItemDetails',item);
-        document.querySelector('#showImage img').src = `storage/${item.image}`;
+        console.log('showItemDetails',item.marque);
+        document.querySelector('#showImage img').src = `storage/${item.produit.image}`;
         $('#id').val(`${item.id}`);
-        $('#showDesignation').html(`${item.designation}`);
-        $('#showCodebar').html(`${item.code_barre}`);
-        $('#showPrixHt').html(`${item.prix_ht}`);
-        $('#showTva').html(`${item.tva}`);
-        $('#showDescription').html(`${item.description}`);
-        $('#showSousFamille').html(`${item.sous_famille_id}`);
-        $('#showMarque').html(`${item.marque_id}`);
-        $('#showUnite').html(`${item.unite_id}`);
+        $('#showDesignation').html(`${item.produit.designation}`);
+        $('#showCodebar').html(`${item.produit.code_barre}`);
+        $('#showPrixHt').html(`${item.produit.prix_ht}`);
+        $('#showTva').html(`${item.produit.tva}`);
+        $('#showDescription').html(`${item.produit.description}`);
+        $('#showSousFamille').html(`${item.sous_famille.libelle}`);
+        $('#showMarque').html(`${item.marque.marque}`);
+        $('#showUnite').html(`${item.unite.unite}`);
     }
 
     function showSuccessAlert(message) {
@@ -53,7 +53,6 @@
     $(document).on('click', '.edit-item', function() {
         const id = $(this).data('id');
         $.get(`produits/${id}`, function(data) {
-            console.log(data);
             $('#error-codebar').html('');
             $('#error-image').html('');
             $('#error-prix_ht').html('');
@@ -66,16 +65,17 @@
             $('#modalTitle').html("Modifier produit");
             $('#saveBtn').html("Modifier");
             $('#itemModal').appendTo('body').modal('show');
-            $('#id').val(`${data.id}`);
+            $('#id').val(`${data.produit.id}`);
+            $('#designation').val(`${data.produit.designation}`);
             $('#image').val(``);
-            $('#codebar').val(`${data.code_barre}`);
+            $('#codebar').val(`${data.produit.code_barre}`);
             $('#image').val(``);
-            $('#prix_ht').val(`${data.prix_ht}`);
-            $('#tva').val(`${data.tva}`);
-            $('#description').val(`${data.description}`);
-            $('#sous_famille').val(`${data.sous_famille_id}`);
-            $('#marque').val(`${data.marque_id}`);
-            $('#unite').val(`${data.unite_id}`);
+            $('#prix_ht').val(`${data.produit.prix_ht}`);
+            $('#tva').val(`${data.produit.tva}`);
+            $('#description').val(`${data.produit.description}`);
+            $('#sous_famille').val(`${data.produit.sous_famille_id}`);
+            $('#marque').val(`${data.produit.marque_id}`);
+            $('#unite').val(`${data.produit.unite_id}`);
         });
     });
 
@@ -84,6 +84,7 @@
         const formElement = document.getElementById('itemForm');
         const formData = new FormData(formElement);
         const id = $('#id').val();
+        console.log('id', id);
         const url = id ? `produits/${id}` : '/produits';
         const method = id ? 'PUT' : 'POST';
         const message = id ? 'Produit modifiée avec succès' : 'Produit crée avec succès';

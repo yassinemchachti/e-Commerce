@@ -9,4 +9,24 @@ class Produit extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];	
+
+
+
+    public function marque()
+    {
+        return $this->belongsTo(Marque::class);
+    }
+
+    public function sous_famille()
+    {
+        return $this->belongsTo(SousFamille::class);
+    }
+
+    public function unite()
+    {
+        return $this->belongsTo(Unite::class);
+    }
+
+
+
 }

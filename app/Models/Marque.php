@@ -9,4 +9,10 @@ class Marque extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+
+    public function produits()
+    {
+        return $this->hasMany(Produit::class);
+    }
 }

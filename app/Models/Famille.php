@@ -9,4 +9,11 @@ class Famille extends Model
 {
     use HasFactory;
     protected $guarded = ['id','_token'];
+
+
+
+    public function sousfamilles()
+    {
+        return $this->hasMany(SousFamille::class);
+    }
 }

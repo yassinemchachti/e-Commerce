@@ -1,5 +1,5 @@
 <div class="modal fade" id="itemModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog large-modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTitle">Ajouter nouvelle famille</h5>
@@ -11,58 +11,74 @@
             <form id="itemForm" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
-                    <input type="hidden" name="id" id="id">
-
-
-
-                    <span for='codebar'>Codebar</span>
-                    <input type="text" id="codebar" name="codebar" class="form-control" placeholder="Codebar">
-                    <p id="error-codebar" class="text-danger"></p>
-
-                    <span for='prix_ht'>Prix HT</span>
-                    <input type="text" id="prix_ht" name="prix_ht" class="form-control" placeholder="Prix HT">
-                    <p id="error-prix_ht" class="text-danger"></p>
-
-                    <span for='tva'>TVA</span>
-                    <input type="text" id="tva" name="tva" class="form-control" placeholder="TVA">
-                    <p id="error-tva" class="text-danger"></p>
-
-                    <span for='description'>Description</span>
-                    <textarea id="description" name="description" class="form-control" placeholder="Description"></textarea>
-                    <p id="error-description" class="text-danger"></p>
-
-                    
-                    <span for='description'>Designation</span>
-                    <textarea id="designation" name="designation" class="form-control" placeholder="Designation"></textarea>
-                    <p id="error-designation" class="text-danger"></p>
-
-                    <span for='image'>Image</span>
-                    <input type="file" id="image" name="image" class="form-control mt-2" placeholder="Image">
-                    <p id="error-image" class="text-danger"></p>
-
-                    <span for='sous_famille'>Sous Famille</span>
-                    <select id="sous_famille" name="sous_famille" class="form-control">
-                        @foreach ( App\Models\SousFamille::all() as $sous_famille)
-                        <option value="{{ $sous_famille->id }}">{{ $sous_famille->libelle }}</option>
-                    @endforeach
-                    </select>
-                    <p id="error-sous_famille" class="text-danger"></p>
-
-                    <span for='marque'>Marque</span>
-                    <select id="marque" name="marque" class="form-control">
-                        @foreach ( App\Models\Marque::all() as $marque)
-                            <option value="{{ $marque->id }}">{{ $marque->marque }}</option>
-                        @endforeach
-                    </select>
-                    <p id="error-marque" class="text-danger"></p>
-
-                    <span for='unite'>Unite</span>
-                    <select id="unite" name="unite" class="form-control">
-                        @foreach ( App\Models\Unite::all() as $unite)
-                        <option value="{{ $unite->id }}">{{ $unite->unite }}</option>
-                    @endforeach
-                    </select>
-                    <p id="error-unite" class="text-danger"></p>
+                    <div class="row">
+                        <input type="hidden" name="id" id="id">
+                        <div class="col-md-6 mb-3">
+                            <span for='codebar'>Codebar</span>
+                            <input type="text" id="codebar" name="codebar" class="form-control" placeholder="Codebar">
+                            <p id="error-codebar" class="text-danger"></p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <span for='prix_ht'>Prix HT</span>
+                            <input type="text" id="prix_ht" name="prix_ht" class="form-control" placeholder="Prix HT">
+                            <p id="error-prix_ht" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <span for='tva'>TVA</span>
+                            <input type="text" id="tva" name="tva" class="form-control" placeholder="TVA">
+                            <p id="error-tva" class="text-danger"></p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <span for='description'>Description</span>
+                            <textarea id="description" name="description" class="form-control" placeholder="Description"></textarea>
+                            <p id="error-description" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <span for='designation'>Designation</span>
+                            <input type="text" id="designation" name="designation" class="form-control" placeholder="Designation"></>
+                            <p id="error-designation" class="text-danger"></p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <span for='image'>Image</span>
+                            <input type="file" id="image" name="image" class="form-control mt-2" placeholder="Image">
+                            <p id="error-image" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <span for='sous_famille'>Sous Famille</span>
+                            <select id="sous_famille" name="sous_famille" class="form-control">
+                                @foreach ( App\Models\SousFamille::all() as $sous_famille)
+                                    <option value="{{ $sous_famille->id }}">{{ $sous_famille->libelle }}</option>
+                                @endforeach
+                            </select>
+                            <p id="error-sous_famille" class="text-danger"></p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <span for='marque'>Marque</span>
+                            <select id="marque" name="marque" class="form-control">
+                                @foreach ( App\Models\Marque::all() as $marque)
+                                    <option value="{{ $marque->id }}">{{ $marque->marque }}</option>
+                                @endforeach
+                            </select>
+                            <p id="error-marque" class="text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <span for='unite'>Unite</span>
+                            <select id="unite" name="unite" class="form-control">
+                                @foreach ( App\Models\Unite::all() as $unite)
+                                    <option value="{{ $unite->id }}">{{ $unite->unite }}</option>
+                                @endforeach
+                            </select>
+                            <p id="error-unite" class="text-danger"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

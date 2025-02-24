@@ -63,7 +63,13 @@ class ProduitController extends Controller
      */
     public function show(Produit $produit)
     {
-        return response()->json($produit);
+  
+        return response()->json([
+            'produit' => $produit,
+            'unite' => $produit->unite,
+            'marque' => $produit->marque,
+            'sous_famille' => $produit->sous_famille
+        ]);
     }
 
     /**
@@ -79,6 +85,7 @@ class ProduitController extends Controller
      */
     public function update(UpdateProduitRequest $request, Produit $produit)
     {
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalName();

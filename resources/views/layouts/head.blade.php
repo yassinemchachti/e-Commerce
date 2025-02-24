@@ -78,6 +78,7 @@
             display: block;
             margin: 0 auto;
             padding: 5px;
+
             /* Fade-in animation for new product rows */
             @keyframes fadeIn {
                 from {
@@ -90,34 +91,37 @@
                     transform: translateY(0);
                 }
             }
+
             .fade-in {
                 animation: fadeIn 0.5s ease-out;
-            
-            /* Fade-out effect for removal */
-            .fade-out {
-                opacity: 0;
-                transition: opacity 0.5s ease-out;
-            }
-            /* Custom inline totals input style */
-            .totals-input {
-                width: 100px;
-                display: inline-block;
-                vertical-align: middle;
-                text-align: right;
-            }
-            .totals-label {
-                margin-bottom: 0;
-                margin-right: 5px;
-                font-weight: 500;
-            }
+
+                /* Fade-out effect for removal */
+                .fade-out {
+                    opacity: 0;
+                    transition: opacity 0.5s ease-out;
+                }
+
+                /* Custom inline totals input style */
+                .totals-input {
+                    width: 100px;
+                    display: inline-block;
+                    vertical-align: middle;
+                    text-align: right;
+                }
+
+                .totals-label {
+                    margin-bottom: 0;
+                    margin-right: 5px;
+                    font-weight: 500;
+                }
+
+                /* Style personnalisé pour l'en-tête du tableau */
+                thead th {
+                    background-color: #343a40;
+                    color: #fff;
+                    text-align: center;
+                }
     </style>
-      <style>
-        /* Style personnalisé pour l'en-tête du tableau */
-        thead th {
-          background-color: #343a40;
-          color: #fff;
-          text-align: center;
-        }
-      </style>
-    
+
+
 </head>
