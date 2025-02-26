@@ -374,11 +374,11 @@
       });
     
       // Optional form submission handler (customize as needed)
-      document.getElementById('paymentForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        // TODO: Process form data here
-        alert('Form submitted!');
-      });
+      // document.getElementById('paymentForm').addEventListener('submit', (e) => {
+      //   e.preventDefault();
+      //   // TODO: Process form data here
+      //   alert('Form submitted!');
+      // });
     
       // Initial recalculation
       recalcAll();

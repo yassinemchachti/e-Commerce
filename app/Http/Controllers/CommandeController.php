@@ -31,7 +31,7 @@ class CommandeController extends Controller
      */
     public function store(StoreCommandeRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

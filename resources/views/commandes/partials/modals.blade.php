@@ -93,9 +93,9 @@
                                 <label for="paymentMode" class="col-sm-3 col-form-label">Mode de Règlement:</label>
                                 <div class="col-sm-9">
                                     <select id="paymentMode" name="paymentMode" class="form-select">
-                                        <option value="cash">Cash</option>
-                                        <option value="card">Card</option>
-                                        <option value="bank">Bank Transfer</option>
+                                        @foreach (App\Models\ModeReglement::all() as  $regelement)
+                                        <option value="{{$regelement->id}}">{{$regelement->mode_reglement}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
