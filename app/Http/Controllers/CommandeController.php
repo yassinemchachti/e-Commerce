@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Commande;
 use App\Http\Requests\StoreCommandeRequest;
 use App\Http\Requests\UpdateCommandeRequest;
+
+use Illuminate\Support\Facades\DB ;
 use Symfony\Component\Console\Command\Command;
+
+use function Laravel\Prompts\error;
 
 class CommandeController extends Controller
 {
@@ -32,6 +36,14 @@ class CommandeController extends Controller
     public function store(StoreCommandeRequest $request)
     {
         dd($request->all());
+        try {
+            DB::beginTransaction();
+            
+
+            return response()->json(['success' => 'Commande crée avec succès']);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()]);
+        }
     }
 
     /**

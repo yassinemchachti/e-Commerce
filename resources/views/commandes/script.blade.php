@@ -58,14 +58,14 @@
         });
     });
 
-    $('#itemForm').submit(function(e) {
+    $('#paymentForm').submit(function(e) {
         e.preventDefault();
-        const formElement = document.getElementById('itemForm');
+        const formElement = document.getElementById('paymentForm');
         const formData = new FormData(formElement);
         const id = $('#id').val();
-        const url = id ? `familles/${id}` : '/familles';
+        const url = id ? `commandes/${id}` : '/commandes';
         const method = id ? 'PUT' : 'POST';
-        const message = id ? 'Famille modifiée avec succès' : 'Famille crée avec succès';
+        const message = id ? 'Commande modifiée avec succès' : 'Commande crée avec succès';
         // For RESTful routes that don't support PUT directly
         if (method === 'PUT') {
             formData.append('_method', 'PUT');
@@ -87,16 +87,16 @@
                 if (response.status === 422) { // Unprocessable Entity - validation error
                     let errors = response.responseJSON.errors;
                     // For example, if you want to display errors for the 'image' field:
-                    if (errors.image) {
-                        $('#error-image').html(errors.image[0]);
-                    }else {
-                        $('#error-image').html('');
-                    }
-                    if (errors.libelle) {
-                        $('#error-libelle').html(errors.libelle[0]);
-                    }else {
-                        $('#error-libelle').html('');
-                    }
+                    // if (errors.image) {
+                    //     $('#error-image').html(errors.image[0]);
+                    // }else {
+                    //     $('#error-image').html('');
+                    // }
+                    // if (errors.libelle) {
+                    //     $('#error-libelle').html(errors.libelle[0]);
+                    // }else {
+                    //     $('#error-libelle').html('');
+                    // }
                 }
             }
         });
@@ -226,6 +226,14 @@
             }
         });
     });
+
+
+  $('#addClientButton').click(function() {  
+    console.log('click');
+    // $('#clientSelection').toggle();
+    $(this).text($(this).text() == '+ Nouveau' ? 'Selectionner un client' : '+ Nouveau');
+  });
+
 </script>
 <script>
     (function() {
@@ -296,10 +304,9 @@
         newRow.innerHTML = `
           <td>
             <select class="form-select productSelect">
-              <option value="">--Select Product--</option>
-              <option value="product1">Product 1</option>
-              <option value="product2">Product 2</option>
-              <option value="product3">Product 3</option>
+              @foreach (App\Models\Produit::all() as  $produit)
+              <option value="{{$produit->id}}">{{$produit->designation}}</option>
+              @endforeach
             </select>
           </td>
           <td>
@@ -354,24 +361,24 @@
       });
     
       // Event listener for saving a new client inline
-      document.getElementById('saveClientButton').addEventListener('click', () => {
-        const newClientName = document.getElementById('newClientName').value.trim();
-        if (newClientName) {
-          const clientSelect = document.getElementById('clientSelect');
-          const newOption = document.createElement('option');
-          newOption.value = newClientName;
-          newOption.text = newClientName;
-          clientSelect.appendChild(newOption);
-          clientSelect.value = newClientName;
-          document.getElementById('newClientName').value = '';
-          // Collapse the inline client form
-          const collapseElement = document.getElementById('clientCollapse');
-          const bsCollapse = bootstrap.Collapse.getInstance(collapseElement) || new bootstrap.Collapse(collapseElement, {toggle: false});
-          bsCollapse.hide();
-        } else {
-          alert('Please enter a client name.');
-        }
-      });
+      // document.getElementById('saveClientButton').addEventListener('click', () => {
+      //   const newClientName = document.getElementById('newClientName').value.trim();
+      //   if (newClientName) {
+      //     const clientSelect = document.getElementById('clientSelect');
+      //     const newOption = document.createElement('option');
+      //     newOption.value = newClientName;
+      //     newOption.text = newClientName;
+      //     clientSelect.appendChild(newOption);
+      //     clientSelect.value = newClientName;
+      //     document.getElementById('newClientName').value = '';
+      //     // Collapse the inline client form
+      //     const collapseElement = document.getElementById('clientCollapse');
+      //     const bsCollapse = bootstrap.Collapse.getInstance(collapseElement) || new bootstrap.Collapse(collapseElement, {toggle: false});
+      //     bsCollapse.hide();
+      //   } else {
+      //     alert('Please enter a client name.');
+      //   }
+      // });
     
       // Optional form submission handler (customize as needed)
       // document.getElementById('paymentForm').addEventListener('submit', (e) => {

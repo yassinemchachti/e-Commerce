@@ -1,230 +1,197 @@
-<style>
-    body {
-        background: #f7f7f7;
-        font-family: Arial, sans-serif;
-    }
-
-    /* Modal customization */
-    .modal-content {
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal-header {
-        background: #007bff;
-        color: #fff;
-        border-bottom: none;
-        padding: 1.5rem 1.5rem;
-    }
-
-    .modal-header .btn {
-        color: #fff;
-        font-size: 1.25rem;
-    }
-
-    .modal-body {
-        padding: 2rem;
-    }
-
-    .modal-footer {
-        border-top: none;
-        padding: 1rem 2rem;
-    }
-
-    /* Card styling within modals */
-    .card {
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        margin-bottom: 1rem;
-    }
-
-    .card-header {
-        background: #007bff;
-        color: #fff;
-        font-size: 1.25rem;
-        padding: 0.75rem 1.25rem;
-    }
-
-    .card-body {
-        padding: 1.5rem;
-    }
-
-    /* Form element enhancements */
-    .form-select,
-    .form-control {
-        border-radius: 5px;
-    }
-
-    .btn-primary {
-        background: #007bff;
-        border: none;
-    }
-
-    .btn-secondary {
-        background: #6c757d;
-        border: none;
-    }
-
-    .btn-success {
-        background: #28a745;
-        border: none;
-    }
-</style>
-
 <!-- Item Modal -->
 <div class="modal fade" id="itemModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg large-modal modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ajouter Nouvelle Commande</h5>
-                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="bi bi-x-lg"></i>
-                </button>
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-light border-bottom">
+                <h5 class="modal-title text-dark fs-5 fw-600">Nouvelle Commande</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-header">Commande</div>
-                    <div class="card-body">
-                        <form id="paymentForm">
-                            <!-- Payment Mode Section -->
-                            <div class="mb-3 row">
-                                <label for="paymentMode" class="col-sm-3 col-form-label">Mode de Règlement:</label>
-                                <div class="col-sm-9">
-                                    <select id="paymentMode" name="paymentMode" class="form-select">
-                                        @foreach (App\Models\ModeReglement::all() as  $regelement)
-                                        <option value="{{$regelement->id}}">{{$regelement->mode_reglement}}</option>
+            <div class="modal-body p-4">
+                <form id="paymentForm" class="needs-validation" novalidate>
+                    @csrf
+                    <div class="row g-4 mb-4">
+                        <!-- Payment Mode -->
+                        <div class="col-md-6">
+                            <label class="form-label text-dark fs-6">Mode de Règlement</label>
+                            <select id="paymentMode" name="paymentMode" class="form-select form-select-sm border-secondary-20">
+                                <option value="">-- Choisissez un mode de reglement --</option>
+                                @foreach (App\Models\ModeReglement::all() as $regelement)
+                                    <option value="{{ $regelement->id }}">{{ $regelement->mode_reglement }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Client Selection -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-end gap-2">
+                                <div class="flex-grow-1" id="clientSelection">
+                                    <label class="form-label text-dark fs-6">Client</label>
+                                    <select id="clientSelect" name="client" class="form-select form-select-sm border-secondary-20">
+                                        <option value="">-- Choisissez un client --</option>
+                                        @foreach (App\Models\User::all() as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                <button type="button" class="btn btn-sm btn-outline-dark border-secondary-20 flex-shrink-0" 
+                                        id="addClientButton" data-bs-toggle="collapse" 
+                                        data-bs-target="#clientCollapse">+ Nouveau</button>
                             </div>
-                            <!-- Client Section with Inline Client Add Form -->
-                            <div class="mb-3 row">
-                                <label for="clientSelect" class="col-sm-3 col-form-label">Client:</label>
-                                <div class="col-sm-7">
-                                    <select id="clientSelect" name="client" class="form-select">
-                                        <option value="">--Select Client--</option>
-                                        <option value="client1">Client 1</option>
-                                        <option value="client2">Client 2</option>
-                                    </select>
+                        </div>
+                    </div>
+
+                    <!-- Client Add Form -->
+                    <div class="collapse mb-4" id="clientCollapse">
+                        <div class="bg-light p-3 rounded-1">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <input type="text" id="newClientName" name="nameclient"
+                                           class="form-control form-control-sm" 
+                                           placeholder="Nom complet" required>
                                 </div>
-                                <div class="col-sm-2">
-                                    <button type="button" class="btn btn-secondary" data-bs-toggle="collapse"
-                                        data-bs-target="#clientCollapse" aria-expanded="false"
-                                        aria-controls="clientCollapse">
-                                        Add Client
-                                    </button>
+                                <div class="col-md-4">
+                                    <input type="email" id="newClientEmail"  name="emailclient"
+                                           class="form-control form-control-sm" 
+                                           placeholder="Email" required>
                                 </div>
-                            </div>
-                            <!-- Inline collapsible client add form -->
-                            <div class="collapse mb-3" id="clientCollapse">
-                                <div class="card card-body">
-                                    <div class="mb-3">
-                                        <input type="text" id="newClientName" class="form-control"
-                                            placeholder="Enter client name" aria-label="Client Name">
-                                    </div>
-                                    <button type="button" id="saveClientButton" class="btn btn-primary">Save
-                                        Client</button>
+                                <div class="col-md-4">
+                                    <input type="password" id="newClientPassword"  name="passwordclient"
+                                           class="form-control form-control-sm" 
+                                           placeholder="Mot de passe" required>
                                 </div>
                             </div>
-                            <!-- Date Fields -->
-                            <div class="mb-3 row">
-                                <label for="date" class="col-sm-3 col-form-label">Date:</label>
-                                <div class="col-sm-9">
-                                    <input type="date" id="date" name="date" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="paymentDate" class="col-sm-3 col-form-label">Date Règlement:</label>
-                                <div class="col-sm-9">
-                                    <input type="date" id="paymentDate" name="paymentDate" class="form-control"
-                                        required>
-                                </div>
-                            </div>
-                            <!-- Products Table -->
-                            <h4 class="mt-4">Products</h4>
-                            <table class="table table-bordered" id="productsTable">
-                                <thead>
+                        </div>
+                    </div>
+
+                    <!-- Date Fields -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label text-dark fs-6">Date Commande</label>
+                            <input type="date" id="date" name="date" 
+                                   class="form-control form-control-sm border-secondary-20">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-dark fs-6">Date Règlement</label>
+                            <input type="date" id="paymentDate" name="paymentDate" 
+                                   class="form-control form-control-sm border-secondary-20">
+                        </div>
+                    </div>
+
+                    <!-- Products Table -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="text-dark fs-6 mb-0">Articles</h6>
+                            <button type="button" id="addProductButton" 
+                                    class="btn btn-sm btn-dark">
+                                + Ajouter Article
+                            </button>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered align-middle" id="productsTable">
+                                <thead class="bg-light">
                                     <tr>
-                                        <th>Product</th>
-                                        <th>Price (HT)</th>
-                                        <th>Quantity</th>
-                                        <th>Total (HT)</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="ps-3">Article</th>
+                                        <th>Prix HT</th>
+                                        <th>Quantité</th>
+                                        <th>Total HT</th>
+                                        <th class="pe-3" style="width: 40px;"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="productsTableBody">
-                                    <!-- Product rows will be dynamically added here -->
+                                    <!-- Dynamic content -->
                                 </tbody>
-                                <!-- Footer with Totals -->
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="5" class="text-end">
-                                            <div class="d-flex justify-content-end align-items-center">
-                                                <div class="me-3">
-                                                    <label class="totals-label">Total HT:</label>
-                                                    <input type="number" id="totalHT"
-                                                        class="form-control totals-input" readonly value="0">
-                                                </div>
-                                                <div class="me-3">
-                                                    <label class="totals-label">TVA (20%):</label>
-                                                    <input type="number" id="totalTVA"
-                                                        class="form-control totals-input" readonly value="0">
-                                                </div>
-                                                <div>
-                                                    <label class="totals-label">Total TTC:</label>
-                                                    <input type="number" id="totalTTC"
-                                                        class="form-control totals-input" readonly value="0">
-                                                </div>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                </tfoot>
                             </table>
-                            <div class="mb-3">
-                                <button type="button" id="addProductButton" class="btn btn-secondary">Add
-                                    Product</button>
-                            </div>
-                            <div class="modal-footer p-0">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="saveItem" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Show Modal -->
-    <div class="modal fade" id="showModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Afficher Famille</h5>
-                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Display Libelle -->
-                    <div class="mb-4">
-                        <label class="form-label">Libelle</label>
-                        <p id="showLibelle" class="form-control-plaintext"></p>
-                    </div>
-                    <!-- Display Image -->
-                    <div class="mb-4">
-                        <label class="form-label">Image</label>
-                        <div id="showImage" class="text-center">
-                            <img src="" alt="Image" class="img-fluid custom-large-image">
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+
+                    <!-- Totals Section -->
+                    <div class="bg-light p-3 rounded-1 mb-4">
+                        <div class="row justify-content-end">
+                            <div class="col-auto">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-transparent border-0">Total HT</span>
+                                    <input type="number" id="totalHT" 
+                                           class="form-control-plaintext text-end" 
+                                           readonly value="0">
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-transparent border-0">TVA</span>
+                                    <input type="number" id="totalTVA" 
+                                           class="form-control-plaintext text-end" 
+                                           readonly value="0">
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-transparent border-0 fw-600">Total TTC</span>
+                                    <input type="number" id="totalTTC" 
+                                           class="form-control-plaintext text-end fw-600" 
+                                           readonly value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex justify-content-end gap-2 border-top pt-4">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" 
+                                data-bs-dismiss="modal">
+                            Annuler
+                        </button>
+                        <button type="submit" id="saveItem" 
+                                class="btn btn-sm btn-dark">
+                            Enregistrer Commande
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<style>
+        /* Remove all validation styles */
+        .was-validated .form-control:valid,
+    .was-validated .form-control:invalid,
+    .form-control.is-valid,
+    .form-control.is-invalid {
+        border-color: #dee2e6 !important;
+        background-image: none !important;
+        box-shadow: none !important;
+    }
+    .was-validated .form-select:valid,
+    .was-validated .form-select:invalid,
+    .form-select.is-valid,
+    .form-select.is-invalid {
+        border-color: #dee2e6 !important;
+        background-image: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Keep original styling */
+    .border-secondary-20 {
+        border: 1px solid #dee2e6;
+    }
+    .form-control-sm {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.875rem;
+    }
+    .form-label {
+        font-size: 0.875rem;
+        margin-bottom: 0.25rem;
+    }
+    .table th {
+        font-weight: 500;
+        font-size: 0.875rem;
+        background-color: #f8f9fa;
+    }
+    .table td {
+        padding: 0.5rem 0.75rem;
+    }
+    .fw-600 {
+        font-weight: 600;
+    }
+</style>

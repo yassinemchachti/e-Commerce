@@ -115,12 +115,7 @@
                     font-weight: 500;
                 }
 
-                /* Style personnalisé pour l'en-tête du tableau */
-                thead th {
-                    background-color: #343a40;
-                    color: #fff;
-                    text-align: center;
-                }
+           
     </style>
 
 
