@@ -23,9 +23,12 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th hidden>#</th>
-                                        <th>Libelle</th>
-                                        <th>Image</th>
                                         <th>Date</th>
+                                        <th>Client</th>
+                                        <th>mode reglement</th>
+                                        <th>Statut</th>
+                                        <th>Regler</th>
+                                        <th>Total</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

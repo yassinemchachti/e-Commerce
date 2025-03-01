@@ -116,7 +116,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `familles/${id}`,
+                    url: `commandes/${id}`,
                     method: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -189,27 +189,31 @@
     $(document).ready(function() {
         $('#itemsTable').DataTable({
             "serverSide": true, // If using server-side processing
-            "ajax": "{{ route('familles.data') }}", // Your data endpoint
+            "ajax": "{{ route('commandes.data') }}", // Your data endpoint
 
             "columns": [{
                     "data": "id",
                     "visible": false
                 },
                 {
-                    "data": "libelle"
+                    "data": "date"
                 },
                 {
-                    "data": "image",
-                    "render": function(data) {
-                        return data ?
-                            `<img src="storage/${data}" class="img-thumbnail" style="max-width: 80px; height: auto;">` :
-                            'No Image';
-                    },
+                    "data": "client",
                     "orderable": false,
                     "searchable": false
                 },
                 {
-                    "data": "created_at"
+                    "data": "mode_reglement",
+                },
+                {
+                    "data": "statut",
+                },
+                {
+                    "data": "regler",
+                },
+                {
+                    "data": "total",
                 },
                 {
                     "data": "action",
@@ -252,16 +256,16 @@
           const quantityInput = row.querySelector('.quantityInput');
           const rowTotalInput = row.querySelector('.rowTotalInput');
           if (productSelect) {
-            productSelect.name = `product[${index}]`;
+            productSelect.name = `product[${index}][product_id]`;
           }
           if (priceInput) {
-            priceInput.name = `price[${index}]`;
+            priceInput.name = `product[${index}][price]`;
           }
           if (quantityInput) {
-            quantityInput.name = `quantity[${index}]`;
+            quantityInput.name = `product[${index}][quantity]`;
           }
           if (rowTotalInput) {
-            rowTotalInput.name = `rowTotal[${index}]`;
+            rowTotalInput.name = `product[${index}][row_total]`;
           }
         });
       }
