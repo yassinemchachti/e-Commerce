@@ -63,10 +63,8 @@ class CommandeController extends Controller
      */
     public function store(StoreCommandeRequest $request)
     {
-        // dd($request->all());
         try {
             DB::beginTransaction();
-            // dd($request->all());
             $client=$request->client;
             if(!$client){
                 $client=User::create([
@@ -75,7 +73,6 @@ class CommandeController extends Controller
                     'email'=>$request->emailclient,
                 ]);
             }
-
             $commande = Commande::create([
                 'user_id' => $client->id ?? $request->client,
                 'regle' => false,
