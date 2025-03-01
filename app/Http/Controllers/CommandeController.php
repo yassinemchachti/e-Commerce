@@ -93,8 +93,6 @@ class CommandeController extends Controller
                     'tva' => 20,
                 ]);
             }
-
-
             DB::commit();
             return response()->json(['success' => 'Commande crée avec succès']);
         } catch (\Throwable $th) {
