@@ -72,7 +72,7 @@
                 <select value="${product.produit_id}" class="form-select productSelect" onchange="changeProduct(event)">
                     <option value="">-- Choisissez un produit --</option>
                     @foreach (App\Models\Produit::all() as $produit)
-                    <option value="{{ $produit->id }}">{{ $produit->designation }}</option>
+                    <option value="{{ $produit->id }}" ${product.produit_id == {{ $produit->id }} ? 'selected' : ''}>{{ $produit->designation }}</option>
                     @endforeach
                 </select>
                 </td>
@@ -91,11 +91,6 @@
             </tr>
             `;
             $('#productsTableBody').append(newRow);
-            updateProductIndices();
-        
-            recalcAll();
-
-          
             });
         })
     });
