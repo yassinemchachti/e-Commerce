@@ -1,0 +1,6 @@
+projectKey=ecommerce_laravel
+serverUrl=http://localhost:9000
+serverVersion=25.3.0.104237
+dashboardUrl=http://localhost:9000/dashboard?id=ecommerce_laravel
+ceTaskId=f52ff815-aad6-4b9d-8100-493c0e99bdbd
+ceTaskUrl=http://localhost:9000/api/ce/task?id=f52ff815-aad6-4b9d-8100-493c0e99bdbd

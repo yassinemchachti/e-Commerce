@@ -55,7 +55,7 @@ Route::get('datatable/mode_reglements', [ModeReglementController::class, 'getmod
 //Commande
 Route::resource('commandes',CommandeController::class);
 // DataTable Route
-Route::get('datatable/commandes', [CommandeController::class, 'getmode_reglements'])->name('commandes.data');
+Route::get('datatable/commandes', [CommandeController::class, 'getcommandes'])->name('commandes.data');
 
 
 //Produit

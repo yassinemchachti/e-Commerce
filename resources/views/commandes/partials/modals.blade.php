@@ -70,11 +70,6 @@
                             <input type="date" id="date" name="date" 
                                    class="form-control form-control-sm border-secondary-20">
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label text-dark fs-6">Date Règlement</label>
-                            <input type="date" id="paymentDate" name="paymentDate" 
-                                   class="form-control form-control-sm border-secondary-20">
-                        </div>
                     </div>
 
                     <!-- Products Table -->

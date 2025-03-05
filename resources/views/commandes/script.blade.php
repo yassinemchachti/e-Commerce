@@ -45,18 +45,47 @@
     // Edit Handler
     $(document).on('click', '.edit-item', function() {
         const id = $(this).data('id');
-        $.get(`familles/${id}`, function(data) {
+        $.get(`commandes/${id}`, function(data) {
             console.log(data);
             $('#error-libelle').html('');
             $('#error-image').html('');
             $('#modalTitle').html("Modifier famille");
             $('#saveBtn').html("Modifier");
             $('#itemModal').appendTo('body').modal('show');
-            $('#id').val(`${data.id}`);
-            $('#image').val(``);
-            $('#libelle').val(`${data.libelle}`);
+
+            $('#paymentMode').val(`${data.mode_reglement_id}`);
+            $('#clientSelect').val(`${data.user_id}`);
+            $('#date').val(`${data.date}`);
+
+            // Append the new row to the products table body
+            const newRow = `
+            <tr>
+                <td>
+                <select class="form-select productSelect" onchange="changeProduct(event)">
+                    <option value="">-- Choisissez un produit --</option>
+                    @foreach (App\Models\Produit::all() as $produit)
+                    <option value="{{ $produit->id }}">{{ $produit->designation }}</option>
+                    @endforeach
+                </select>
+                </td>
+                <td>
+                <input type="text" class="form-control priceInput" placeholder="Price">
+                </td>
+                <td>
+                <input type="number" class="form-control quantityInput" placeholder="Quantity" min="1" value="1">
+                </td>
+                <td>
+                <input type="number" class="form-control rowTotalInput" placeholder="Row Total" readonly value="0">
+                </td>
+                <td class="text-center">
+                <button type="button" class="removeProduct btn btn-danger">Remove</button>
+                </td>
+            </tr>
+            `;
+            $('#productsTableBody').append(newRow);
         });
-    });
+        });
+
 
     $('#paymentForm').submit(function(e) {
         e.preventDefault();
@@ -210,7 +239,7 @@
                     "data": "statut",
                 },
                 {
-                    "data": "regler",
+                    "data": "regle",
                 },
                 {
                     "data": "total",
