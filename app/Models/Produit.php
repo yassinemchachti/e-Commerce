@@ -28,5 +28,11 @@ class Produit extends Model
     }
 
 
+    public function detail_commandes()
+    {
+        return $this->hasMany(DetailCommande::class);
+    }
+
+
 
 }

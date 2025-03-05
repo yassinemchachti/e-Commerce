@@ -57,11 +57,19 @@
             $('#clientSelect').val(`${data.user_id}`);
             $('#date').val(`${data.date}`);
 
+
+        });
+
+        $.get(`/commandes/products/${id}`, function(data) {
+
+
+            console.log(data);
             // Append the new row to the products table body
-            const newRow = `
+            data.forEach(function(product) {
+                const newRow = `
             <tr>
                 <td>
-                <select class="form-select productSelect" onchange="changeProduct(event)">
+                <select value="${product.produit_id}" class="form-select productSelect" onchange="changeProduct(event)">
                     <option value="">-- Choisissez un produit --</option>
                     @foreach (App\Models\Produit::all() as $produit)
                     <option value="{{ $produit->id }}">{{ $produit->designation }}</option>
@@ -69,10 +77,10 @@
                 </select>
                 </td>
                 <td>
-                <input type="text" class="form-control priceInput" placeholder="Price">
+                <input type="text" value="${product.prix_ht}"  class="form-control priceInput" placeholder="Price">
                 </td>
                 <td>
-                <input type="number" class="form-control quantityInput" placeholder="Quantity" min="1" value="1">
+                <input type="number" value="${product.quantite}"  class="form-control quantityInput" placeholder="Quantity" min="1" value="1">
                 </td>
                 <td>
                 <input type="number" class="form-control rowTotalInput" placeholder="Row Total" readonly value="0">
@@ -83,8 +91,14 @@
             </tr>
             `;
             $('#productsTableBody').append(newRow);
-        });
-        });
+            updateProductIndices();
+        
+            recalcAll();
+
+          
+            });
+        })
+    });
 
 
     $('#paymentForm').submit(function(e) {
@@ -276,25 +290,25 @@
         /**
          * Updates the indices of product input names based on their order.
          */
-        function updateProductIndices() {
+        window.updateProductIndices = function() {
             const productRows = document.querySelectorAll('#productsTableBody .productRow');
             productRows.forEach((row, index) => {
-                const productSelect = row.querySelector('.productSelect');
-                const priceInput = row.querySelector('.priceInput');
-                const quantityInput = row.querySelector('.quantityInput');
-                const rowTotalInput = row.querySelector('.rowTotalInput');
-                if (productSelect) {
-                    productSelect.name = `product[${index}][product_id]`;
-                }
-                if (priceInput) {
-                    priceInput.name = `product[${index}][price]`;
-                }
-                if (quantityInput) {
-                    quantityInput.name = `product[${index}][quantity]`;
-                }
-                if (rowTotalInput) {
-                    rowTotalInput.name = `product[${index}][row_total]`;
-                }
+            const productSelect = row.querySelector('.productSelect');
+            const priceInput = row.querySelector('.priceInput');
+            const quantityInput = row.querySelector('.quantityInput');
+            const rowTotalInput = row.querySelector('.rowTotalInput');
+            if (productSelect) {
+                productSelect.name = `product[${index}][product_id]`;
+            }
+            if (priceInput) {
+                priceInput.name = `product[${index}][price]`;
+            }
+            if (quantityInput) {
+                quantityInput.name = `product[${index}][quantity]`;
+            }
+            if (rowTotalInput) {
+                rowTotalInput.name = `product[${index}][row_total]`;
+            }
             });
         }
 
@@ -302,7 +316,7 @@
          * Recalculates the row total for a given row.
          * @param {HTMLElement} row - The product row element.
          */
-        function recalcRow(row) {
+        window.recalcRow = function(row) {
             const price = parseFloat(row.querySelector('.priceInput').value) || 0;
             const quantity = parseFloat(row.querySelector('.quantityInput').value) || 0;
             const rowTotal = price * quantity;
@@ -313,11 +327,11 @@
         /**
          * Recalculates the totals in the table footer.
          */
-        function recalcAll() {
+        window.recalcAll = function() {
             let totalHT = 0;
             const productRows = document.querySelectorAll('#productsTableBody .productRow');
             productRows.forEach(row => {
-                totalHT += recalcRow(row);
+            totalHT += recalcRow(row);
             });
             const totalTVA = totalHT * TAX_RATE;
             const totalTTC = totalHT + totalTVA;

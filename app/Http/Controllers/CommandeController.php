@@ -7,7 +7,7 @@ use App\Http\Requests\StoreCommandeRequest;
 use App\Http\Requests\UpdateCommandeRequest;
 use App\Models\DetailCommande;
 use App\Models\User;
-use Illuminate\Support\Facades\DB ;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Command\Command;
 
 use function Laravel\Prompts\error;
@@ -27,17 +27,17 @@ class CommandeController extends Controller
                 return view('commandes.partials.actions', compact('commande'))->render();
             })
             ->addColumn('mode_reglement', function ($commande) {
-            
+
                 return $commande->mode_reglement->mode_reglement;
             })
             ->addColumn('statut', function ($commande) {
-                return'<button class="btn">
-                 <span class="badge badge-primary">'.$commande->etat->etat.'</span>
+                return '<button class="btn">
+                 <span class="badge badge-primary">' . $commande->etat->etat . '</span>
                 </button>';
             })
-      
+
             ->addColumn('regle', function ($commande) {
-            
+
                 return $commande->regle ? 'Oui' : 'Non';
             })
             ->addColumn('client', function ($commande) {
@@ -46,7 +46,7 @@ class CommandeController extends Controller
             ->addColumn('total', function ($commande) {
                 return $commande->total;
             })
-            ->rawColumns(['action','statut'])
+            ->rawColumns(['action', 'statut'])
             ->make(true);
     }
     /**
@@ -73,12 +73,12 @@ class CommandeController extends Controller
     {
         try {
             DB::beginTransaction();
-            $client=$request->client;
-            if(!$client){
-                $client=User::create([
-                    'password'=>$request->passwordclient,
-                    'name'=>$request->nameclient,
-                    'email'=>$request->emailclient,
+            $client = $request->client;
+            if (!$client) {
+                $client = User::create([
+                    'password' => $request->passwordclient,
+                    'name' => $request->nameclient,
+                    'email' => $request->emailclient,
                 ]);
             }
             $commande = Commande::create([
@@ -112,16 +112,9 @@ class CommandeController extends Controller
      */
     public function show(Commande $commande)
     {
-        //
+        return response()->json($commande);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Commande $commande)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -130,12 +123,12 @@ class CommandeController extends Controller
     {
         try {
             DB::beginTransaction();
-            $client=$request->client;
-            if(!$client){
-                $client=User::create([
-                    'password'=>$request->passwordclient,
-                    'name'=>$request->nameclient,
-                    'email'=>$request->emailclient,
+            $client = $request->client;
+            if (!$client) {
+                $client = User::create([
+                    'password' => $request->passwordclient,
+                    'name' => $request->nameclient,
+                    'email' => $request->emailclient,
                 ]);
             }
             $commande = Commande::create([
@@ -169,6 +162,17 @@ class CommandeController extends Controller
      */
     public function destroy(Commande $commande)
     {
-        //
+        $commande->delete();
+        return response()->json(['success' => 'Commande supprimée avec succès']);
     }
+
+
+public function getproducts($id)
+{
+    $commande = Commande::find($id);
+    $products = $commande->detailCommandes;
+    return response()->json($products);
+
+}
+
 }
