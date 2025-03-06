@@ -121,6 +121,8 @@ class CommandeController extends Controller
      */
     public function update(UpdateCommandeRequest $request, Commande $commande)
     {
+
+    //    dd($request->all());
         try {
             DB::beginTransaction();
             $client = $request->client;
@@ -131,14 +133,15 @@ class CommandeController extends Controller
                     'email' => $request->emailclient,
                 ]);
             }
-            $commande = Commande::create([
+            $commande->update([
                 'user_id' => $client->id ?? $request->client,
-                'regle' => false,
+                'regle' => $request->regler=='regler' ? true : false,
                 'mode_reglement_id' => $request->paymentMode,
                 'date' => $request->date,
                 'heure' => now()->format('H:i:s'),
-                'etat_id' => 1,
+                'etat_id' => $request->etat_id,
             ]);
+            $commande->detailCommandes()->delete();
             foreach ($request->product as $produit) {
                 DetailCommande::create([
                     'commande_id' => $commande->id,

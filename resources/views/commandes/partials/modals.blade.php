@@ -10,6 +10,7 @@
                 <form id="paymentForm" class="needs-validation" novalidate>
                     @csrf
                     <div class="row g-4 mb-4">
+                        <input type="text" id="id" name="id" hidden>
                         <!-- Payment Mode -->
                         <div class="col-md-6">
                             <label class="form-label text-dark fs-6">Mode de Règlement</label>
