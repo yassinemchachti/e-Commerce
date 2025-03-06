@@ -52,7 +52,9 @@
             $('#modalTitle').html("Modifier famille");
             $('#saveBtn').html("Modifier");
             $('#itemModal').appendTo('body').modal('show');
-
+            $('#id').val(`${data.id}`);
+            $('#etat_id').val(`${data.etat_id}`);
+            $('#regler').val(`${data.regle ? 'regler' : 'non_regler'}`);
             $('#paymentMode').val(`${data.mode_reglement_id}`);
             $('#clientSelect').val(`${data.user_id}`);
             $('#date').val(`${data.date}`);
@@ -67,7 +69,7 @@
             // Append the new row to the products table body
             data.forEach(function(product) {
                 const newRow = `
-            <tr>
+            <tr class="productRow">
                 <td>
                 <select value="${product.produit_id}" class="form-select productSelect" onchange="changeProduct(event)">
                     <option value="">-- Choisissez un produit --</option>
@@ -91,6 +93,8 @@
             </tr>
             `;
             $('#productsTableBody').append(newRow);
+            updateProductIndices();
+            recalcAll();
             });
         })
     });
