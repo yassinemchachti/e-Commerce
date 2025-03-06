@@ -58,6 +58,13 @@
                     <span>Products</span>
                 </a>
             </li>
+
+            <li class="dropdown {{ request()->routeIs('commandes.index') ? 'active' : '' }}">
+                <a href="{{ route('commandes.index') }}" class="nav-link">
+                    <i data-feather="shopping-bag"></i>
+                    <span>Commandes</span>
+                </a>
+            </li>
         </ul>
        
         
