@@ -33,9 +33,9 @@ class StoreCommandeRequest extends FormRequest
              * or new client details must be provided.
              */
             'client'          => 'required_without_all:nameclient,emailclient,passwordclient|exists:users,id',
-            'nameclient'      => 'required_without:client|string|max:255',
-            'emailclient'     => 'required_without:client|email|max:255|unique:users,email',
-            'passwordclient'  => 'required_without:client|min:8',
+            // 'nameclient'      => 'required_without:client|string|max:255',
+            // 'emailclient'     => 'required_without:client|email|max:255|unique:users,email',
+            // 'passwordclient'  => 'required_without:client|min:8',
     
             // The date of the order must be provided and be a valid date.
             'date'            => 'required|date',
@@ -58,11 +58,11 @@ class StoreCommandeRequest extends FormRequest
              */
 
 
-             'products'              => 'required|array|min:1',
-             'products.*.product_id' => 'required|exists:products,id',
-             'products.*.price'      => 'required|numeric|min:0',
-             'products.*.quantity'   => 'required|integer|min:1',
-             'products.*.row_total'  => 'required|numeric|min:0',
+            //  'products'              => 'required|array|min:1',
+            //  'products.*.product_id' => 'required|exists:products,id',
+            //  'products.*.price'      => 'required|numeric|min:0',
+            //  'products.*.quantity'   => 'required|integer|min:1',
+            //  'products.*.row_total'  => 'required|numeric|min:0',
         ];
     }
 
