@@ -23,32 +23,34 @@
             }
         });
     }
+
     function showLargeErrorAlert(message) {
-    Swal.fire({
-        icon: 'error',
-        title: 'Erreur',
-        text: message,
-        width: '600px',
-        confirmButtonText: 'OK',
-        allowOutsideClick: false
-    });
-}
-function showErrorAlert(message) {
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'error',
-        title: message,
-        showConfirmButton: false,
-        timer: 5000,
-        timerProgressBar: true,
-        animation: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
-    });
-}
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: message,
+            width: '600px',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false
+        });
+    }
+
+    function showErrorAlert(message) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: message,
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            animation: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+    }
 
 
     // Create/Edit Modal Handler
@@ -75,8 +77,7 @@ function showErrorAlert(message) {
         const id = $(this).data('id');
         $.get(`commandes/${id}`, function(data) {
             console.log(data);
-            $('#error-libelle').html('');
-            $('#error-image').html('');
+
             $('#modalTitle').html("Modifier famille");
             $('#saveBtn').html("Modifier");
             $('#itemModal').appendTo('body').modal('show');
@@ -149,16 +150,24 @@ function showErrorAlert(message) {
             success: function(response) {
                 $('#itemModal').modal('hide');
                 $('#itemsTable').DataTable().ajax.reload();
-                $('#error-libelle').html('');
-                $('#error-image').html('');
+                $('#id').val('');
+                $('#etat_id').val('');
+                $('#regler').val('');
+                $('#paymentMode').val('');
+                $('#clientSelect').val('');
+                $('#date').val('');
+                $('#productsTableBody').html('');
+
                 showSuccessAlert(message);
             },
             error: function(response) {
                 if (response.status === 422) { // Unprocessable Entity - validation error
 
-                    showErrorAlert('Une erreur s\'est produite lors de la validation du formulaire. Veuillez vérifier et réessayer.');
+                    showErrorAlert(
+                        'Une erreur s\'est produite lors de la validation du formulaire. Veuillez vérifier et réessayer.'
+                    );
                     let errors = response.responseJSON.errors;
-                  
+
                     //     // Exemple de gestion des erreurs après soumission du formulaire
                     //     if (errors.paymentMode) {
                     //         $('#error-paymentMode').html(errors.paymentMode[0]);
