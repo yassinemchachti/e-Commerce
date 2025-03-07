@@ -1,7 +1,4 @@
 <div class="btn-group">
-    <button class="btn btn-info btn-sm show-item " data-id="{{ $commande->id }}">
-        <i class="fas fa-eye"></i>
-    </button>
     <button class="btn btn-primary btn-sm edit-item mx-2" data-id="{{ $commande->id }}">
         <i class="fas fa-edit"></i>
     </button>

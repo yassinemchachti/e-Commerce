@@ -31,9 +31,7 @@ class CommandeController extends Controller
                 return $commande->mode_reglement->mode_reglement;
             })
             ->addColumn('statut', function ($commande) {
-                return '<button class="btn">
-                 <span class="badge badge-primary">' . $commande->etat->etat . '</span>
-                </button>';
+                return '<span class="badge badge-primary">' . $commande->etat->etat . '</span>';
             })
 
             ->addColumn('regle', function ($commande) {
