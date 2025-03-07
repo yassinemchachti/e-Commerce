@@ -32,7 +32,7 @@ class StoreCommandeRequest extends FormRequest
              * Either an existing client must be selected (client field)
              * or new client details must be provided.
              */
-            'client'          => 'required_without_all:nameclient,emailclient,passwordclient|exists:users,id',
+            // 'client'          => 'required_without_all:nameclient,emailclient,passwordclient|exists:users,id',
             // 'nameclient'      => 'required_without:client|string|max:255',
             // 'emailclient'     => 'required_without:client|email|max:255|unique:users,email',
             // 'passwordclient'  => 'required_without:client|min:8',
