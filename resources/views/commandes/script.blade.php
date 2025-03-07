@@ -23,6 +23,34 @@
             }
         });
     }
+    function showLargeErrorAlert(message) {
+    Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: message,
+        width: '600px',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+    });
+}
+function showErrorAlert(message) {
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        animation: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+    });
+}
+
+
     // Create/Edit Modal Handler
     $('#createNewItem').click(function() {
         $('#error-libelle').html('');
@@ -92,9 +120,9 @@
                 </td>
             </tr>
             `;
-            $('#productsTableBody').append(newRow);
-            updateProductIndices();
-            recalcAll();
+                $('#productsTableBody').append(newRow);
+                updateProductIndices();
+                recalcAll();
             });
         })
     });
@@ -127,18 +155,78 @@
             },
             error: function(response) {
                 if (response.status === 422) { // Unprocessable Entity - validation error
+
+                    showErrorAlert('Une erreur s\'est produite lors de la validation du formulaire. Veuillez vérifier et réessayer.');
                     let errors = response.responseJSON.errors;
-                    // For example, if you want to display errors for the 'image' field:
-                    // if (errors.image) {
-                    //     $('#error-image').html(errors.image[0]);
-                    // }else {
-                    //     $('#error-image').html('');
+                  
+                    //     // Exemple de gestion des erreurs après soumission du formulaire
+                    //     if (errors.paymentMode) {
+                    //         $('#error-paymentMode').html(errors.paymentMode[0]);
+                    //     } else {
+                    //         $('#error-paymentMode').html('');
+                    //     }
+
+                    // if (errors.client) {
+                    //     $('#error-client').html(errors.client[0]);
+                    // } else {
+                    //     $('#error-client').html('');
                     // }
-                    // if (errors.libelle) {
-                    //     $('#error-libelle').html(errors.libelle[0]);
-                    // }else {
-                    //     $('#error-libelle').html('');
+
+                    // if (errors.nameclient) {
+                    //     $('#error-nameclient').html(errors.nameclient[0]);
+                    // } else {
+                    //     $('#error-nameclient').html('');
                     // }
+
+                    // if (errors.emailclient) {
+                    //     $('#error-emailclient').html(errors.emailclient[0]);
+                    // } else {
+                    //     $('#error-emailclient').html('');
+                    // }
+
+                    // if (errors.passwordclient) {
+                    //     $('#error-passwordclient').html(errors.passwordclient[0]);
+                    // } else {
+                    //     $('#error-passwordclient').html('');
+                    // }
+
+                    // if (errors.date) {
+                    //     $('#error-date').html(errors.date[0]);
+                    // } else {
+                    //     $('#error-date').html('');
+                    // }
+
+                    // if (errors.etat_id) {
+                    //     $('#error-etat_id').html(errors.etat_id[0]);
+                    // } else {
+                    //     $('#error-etat_id').html('');
+                    // }
+
+                    // if (errors.regler) {
+                    //     $('#error-regler').html(errors.regler[0]);
+                    // } else {
+                    //     $('#error-regler').html('');
+                    // }
+
+                    // // Gestion des erreurs pour les articles (products)
+                    // // Si vous avez un conteneur général pour les erreurs sur les produits
+                    // if (errors.products) {
+                    //     $('#error-products').html(errors.products[0]);
+                    // } else {
+                    //     $('#error-products').html('');
+                    // }
+
+                    // // Par ailleurs, pour gérer les erreurs individuelles de chaque article, 
+                    // // on peut parcourir l'objet errors et cibler les erreurs commençant par "products."
+                    // $.each(errors, function(key, messages) {
+                    //     if (key.startsWith('products.')) {
+                    //         // Transformation de la clé pour construire l'ID de l'élément d'erreur.
+                    //         // Exemple : "products.0.product_id" devient "#error-products-0-product_id"
+                    //         var errorId = '#error-' + key.replace(/\./g, '-');
+                    //         $(errorId).html(messages[0]);
+                    //     }
+                    // });
+
                 }
             }
         });
@@ -276,7 +364,6 @@
 
     $('#addClientButton').click(function() {
         console.log('click');
-        // $('#clientSelection').toggle();
         $(this).text($(this).text() == '+ Nouveau' ? 'Selectionner un client' : '+ Nouveau');
     });
 </script>
@@ -292,22 +379,22 @@
         window.updateProductIndices = function() {
             const productRows = document.querySelectorAll('#productsTableBody .productRow');
             productRows.forEach((row, index) => {
-            const productSelect = row.querySelector('.productSelect');
-            const priceInput = row.querySelector('.priceInput');
-            const quantityInput = row.querySelector('.quantityInput');
-            const rowTotalInput = row.querySelector('.rowTotalInput');
-            if (productSelect) {
-                productSelect.name = `product[${index}][product_id]`;
-            }
-            if (priceInput) {
-                priceInput.name = `product[${index}][price]`;
-            }
-            if (quantityInput) {
-                quantityInput.name = `product[${index}][quantity]`;
-            }
-            if (rowTotalInput) {
-                rowTotalInput.name = `product[${index}][row_total]`;
-            }
+                const productSelect = row.querySelector('.productSelect');
+                const priceInput = row.querySelector('.priceInput');
+                const quantityInput = row.querySelector('.quantityInput');
+                const rowTotalInput = row.querySelector('.rowTotalInput');
+                if (productSelect) {
+                    productSelect.name = `product[${index}][product_id]`;
+                }
+                if (priceInput) {
+                    priceInput.name = `product[${index}][price]`;
+                }
+                if (quantityInput) {
+                    quantityInput.name = `product[${index}][quantity]`;
+                }
+                if (rowTotalInput) {
+                    rowTotalInput.name = `product[${index}][row_total]`;
+                }
             });
         }
 
@@ -330,7 +417,7 @@
             let totalHT = 0;
             const productRows = document.querySelectorAll('#productsTableBody .productRow');
             productRows.forEach(row => {
-            totalHT += recalcRow(row);
+                totalHT += recalcRow(row);
             });
             const totalTVA = totalHT * TAX_RATE;
             const totalTTC = totalHT + totalTVA;

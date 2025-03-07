@@ -38,8 +38,7 @@
                                 </div>
                                 <button type="button"
                                     class="btn btn-sm btn-outline-dark border-secondary-20 flex-shrink-0"
-                                    id="addClientButton" data-bs-toggle="collapse" data-bs-target="#clientCollapse">+
-                                    Nouveau</button>
+                                    id="addClientButton" data-bs-toggle="collapse" data-bs-target="#clientCollapse">+ Nouveau</button>
                             </div>
                         </div>
                     </div>

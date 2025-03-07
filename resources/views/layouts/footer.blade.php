@@ -1,6 +1,7 @@
 <footer class="main-footer">
     <div class="footer-left">
-        <a href="templateshub.net">Templateshub</a></a>
+       
+        <a href="#" target="_blank" >by Yassine Abakhti Mchachti</a>
     </div>
     <div class="footer-right">
     </div>
