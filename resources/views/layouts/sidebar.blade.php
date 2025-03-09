@@ -10,45 +10,43 @@
             <li class="menu-header">Main</li>
             <li class="dropdown {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                 <a href="{{ route('dashboard') }}" class="nav-link">
-                    <i data-feather="monitor"></i>
+                    <i data-feather="home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-            <!-- For the Widgets dropdown -->
-          
             <li class="dropdown {{ request()->routeIs('mode_reglements.index') ? 'active' : '' }}">
                 <a href="{{ route('mode_reglements.index') }}" class="nav-link">
-                    <i data-feather="shopping-bag"></i>
-                    <span>Mode regelement</span>
+                    <i data-feather="credit-card"></i>
+                    <span>Mode Reglement</span>
                 </a>
             </li>
             <li class="dropdown {{ request()->routeIs('etats.index') ? 'active' : '' }}">
                 <a href="{{ route('etats.index') }}" class="nav-link">
-                    <i data-feather="shopping-bag"></i>
+                    <i data-feather="bar-chart-2"></i>
                     <span>Etats</span>
                 </a>
             </li>
             <li class="dropdown {{ request()->routeIs('unites.index') ? 'active' : '' }}">
                 <a href="{{ route('unites.index') }}" class="nav-link">
-                    <i data-feather="shopping-bag"></i>
+                    <i data-feather="grid"></i>
                     <span>Unites</span>
                 </a>
             </li>
             <li class="dropdown {{ request()->routeIs('marques.index') ? 'active' : '' }}">
                 <a href="{{ route('marques.index') }}" class="nav-link">
-                    <i data-feather="shopping-bag"></i>
+                    <i data-feather="tag"></i>
                     <span>Marques</span>
                 </a>
             </li>
             <li class="dropdown {{ request()->routeIs('sousfamilles.index') ? 'active' : '' }}">
                 <a href="{{ route('sousfamilles.index') }}" class="nav-link">
-                    <i data-feather="shopping-bag"></i>
+                    <i data-feather="list"></i>
                     <span>Sous Familles</span>
                 </a>
             </li>
             <li class="dropdown {{ request()->routeIs('familles.index') ? 'active' : '' }}">
                 <a href="{{ route('familles.index') }}" class="nav-link">
-                    <i data-feather="shopping-bag"></i>
+                    <i data-feather="folder"></i>
                     <span>Familles</span>
                 </a>
             </li>
@@ -58,14 +56,14 @@
                     <span>Products</span>
                 </a>
             </li>
-
             <li class="dropdown {{ request()->routeIs('commandes.index') ? 'active' : '' }}">
                 <a href="{{ route('commandes.index') }}" class="nav-link">
-                    <i data-feather="shopping-bag"></i>
+                    <i data-feather="shopping-cart"></i>
                     <span>Commandes</span>
                 </a>
             </li>
         </ul>
+        
        
         
     </aside>
