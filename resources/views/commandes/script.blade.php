@@ -1,4 +1,13 @@
 <script>
+    function rest() {
+        $('#id').val('');
+        $('#etat_id').val('');
+        $('#regler').val('');
+        $('#paymentMode').val('');
+        $('#clientSelect').val('');
+        $('#date').val('');
+        $('#productsTableBody').html('');
+    }
     // Example: Setting values before showing the modal
     function showItemDetails(item) {
         document.getElementById('showLibelle').innerText = item.libelle;
@@ -150,13 +159,7 @@
             success: function(response) {
                 $('#itemModal').modal('hide');
                 $('#itemsTable').DataTable().ajax.reload();
-                $('#id').val('');
-                $('#etat_id').val('');
-                $('#regler').val('');
-                $('#paymentMode').val('');
-                $('#clientSelect').val('');
-                $('#date').val('');
-                $('#productsTableBody').html('');
+                rest();
 
                 showSuccessAlert(message);
             },

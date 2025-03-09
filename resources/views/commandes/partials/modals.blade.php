@@ -146,7 +146,7 @@
 
                     <!-- Action Buttons -->
                     <div class="d-flex justify-content-end gap-2 border-top pt-4">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">
+                        <button type="button" onclick="rest()" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">
                             Annuler
                         </button>
                         <button type="submit" id="saveItem" class="btn btn-sm btn-dark">
